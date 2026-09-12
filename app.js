@@ -25,9 +25,37 @@ function resetButtons() {
 
 sentences.forEach((sentence, index) => {
   const row = document.createElement('li');
+  const number = document.createElement('span');
+  number.className = 'number';
+  number.textContent = `${index + 1}.`;
+  const wording = document.createElement('div');
   const text = document.createElement('p');
   text.className = 'sentence';
-  text.textContent = `${index + 1}. ${sentence.english}`;
+  text.textContent = sentence.english;
+  const translation = document.createElement('p');
+  translation.className = 'translation';
+  translation.lang = 'es';
+  translation.textContent = sentence.spanish;
+  wording.append(text, translation);
+  const controls = document.createElement('div');
+  controls.className = 'controls';
+  const speedLabel = document.createElement('label');
+  speedLabel.className = 'speed';
+  const speedText = document.createElement('span');
+  speedText.textContent = 'Speed: 0.85×';
+  const speed = document.createElement('input');
+  speed.type = 'range';
+  speed.min = '0.5';
+  speed.max = '1.5';
+  speed.step = '0.05';
+  speed.value = '0.85';
+  speed.setAttribute('aria-label', `Speech speed for sentence ${index + 1}`);
+  speed.setAttribute('aria-valuetext', '0.85 times normal speed');
+  speed.addEventListener('input', () => {
+    speedText.textContent = `Speed: ${Number(speed.value).toFixed(2)}×`;
+    speed.setAttribute('aria-valuetext', `${speed.value} times normal speed`);
+  });
+  speedLabel.append(speedText, speed);
   const button = document.createElement('button');
   button.type = 'button';
   button.textContent = '▶ Listen in Spanish';
@@ -43,7 +71,7 @@ sentences.forEach((sentence, index) => {
     const voice = voices.find(item => /^es[-_]MX$/i.test(item.lang)) || voices.find(item => /^es([-_]|$)/i.test(item.lang));
     utterance.lang = voice ? voice.lang : 'es-ES';
     if (voice) utterance.voice = voice;
-    utterance.rate = 0.85;
+    utterance.rate = Number(speed.value);
     activeUtterance = utterance;
     button.setAttribute('aria-pressed', 'true');
     button.textContent = '♫ Playing Spanish…';
@@ -62,7 +90,8 @@ sentences.forEach((sentence, index) => {
     };
     window.speechSynthesis.speak(utterance);
   });
-  row.append(text, button);
+  controls.append(button, speedLabel);
+  row.append(number, wording, controls);
   list.append(row);
 });
 
