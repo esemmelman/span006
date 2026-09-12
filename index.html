@@ -24,19 +24,25 @@
     button:focus-visible { outline: 4px solid #d87b00; outline-offset: 5px; }
     button[aria-pressed="true"] { background: #146046; }
     button:disabled { background: #637083; cursor: not-allowed; }
-    #status { min-height: 40px; margin: 24px 0; }
-    footer { margin-top: 32px; font-size: 26px; }
+    #status { margin: 24px 0; }
+    #status:empty { display: none; }
+    .navigation { margin-top: 28px; }
+    .feedback { grid-column: 2; overflow-wrap: anywhere; }
+    .feedback:empty { display: none; }
+    .feedback p { margin: 8px 0; }
+    .score { font-weight: bold; font-size: 32px; }
     @media (max-width: 650px) { main { padding: 32px 16px; } li { padding: 20px 16px; gap: 12px 10px; } .sentence, .translation { font-size: 36px; } .controls { grid-column: 1 / -1; } }
   </style>
 </head>
 <body>
   <main>
-    <h1>Spanish reflexive verbs</h1>
+    <h1 tabindex="-1">Spanish reflexive verbs</h1>
     <p class="intro">Read each English sentence and its Spanish translation. Tap <strong>Listen in Spanish</strong> to hear it. Adjust the speed slider before listening.</p>
     <ol id="sentences" aria-label="Ten reflexive verb sentences"></ol>
     <p id="status" role="status" aria-live="polite"></p>
-    <footer>Reflexive verbs end in <strong lang="es">-se</strong> in their infinitive form, like <strong lang="es">lavarse</strong> (to wash oneself). In sentences, use <strong lang="es">me, te, se, nos</strong>, or <strong lang="es">os</strong> with the conjugated verb.</footer>
+    <div class="navigation"><button id="next" type="button">Next</button></div>
   </main>
+  <script src="practice.js"></script>
   <script src="app.js"></script>
 </body>
 </html>

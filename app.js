@@ -23,6 +23,8 @@ function resetButtons() {
   });
 }
 
+function renderListening() {
+list.replaceChildren();
 sentences.forEach((sentence, index) => {
   const row = document.createElement('li');
   const number = document.createElement('span');
@@ -79,7 +81,7 @@ sentences.forEach((sentence, index) => {
     utterance.onend = () => {
       if (activeUtterance !== utterance) return;
       resetButtons();
-      status.textContent = 'Tap any button to listen again.';
+      status.textContent = '';
       activeUtterance = null;
     };
     utterance.onerror = () => {
@@ -96,3 +98,23 @@ sentences.forEach((sentence, index) => {
 });
 
 if (!supported) status.textContent = 'This browser does not support speech. Open this page in a browser with text-to-speech support.';
+}
+
+renderListening();
+let practiceMode = false;
+document.getElementById('next').addEventListener('click', () => {
+  activeUtterance = null;
+  if (supported) window.speechSynthesis.cancel();
+  stopPractice();
+  status.textContent = '';
+  practiceMode = !practiceMode;
+  document.querySelector('h1').textContent = practiceMode ? 'Your turn: speak Spanish' : 'Spanish reflexive verbs';
+  document.querySelector('.intro').textContent = practiceMode
+    ? 'Translate each English sentence aloud in Spanish. Tap Record, allow microphone access, then tap Stop when finished. Feedback compares recognized words with the practice sentence; it is not a pronunciation grade.'
+    : 'Read each English sentence and its Spanish translation. Tap Listen in Spanish to hear it. Adjust the speed slider before listening.';
+  document.getElementById('next').textContent = practiceMode ? 'Back to practice' : 'Next';
+  if (practiceMode) renderPractice(sentences, list, status);
+  else renderListening();
+  document.querySelector('h1').focus();
+  window.scrollTo(0, 0);
+});
