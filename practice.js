@@ -119,9 +119,13 @@ function renderPractice(sentences, list, status) {
         spoken.lang = 'es';
         spoken.textContent = transcript;
         heard.append(spoken);
-        const hint = document.createElement('p');
-        hint.textContent = score === 100 ? 'All words matched the practice sentence.' : 'Check the reflexive pronoun, verb, and word order. You can go back to practice and listen again. Other valid translations may receive a lower match.';
-        feedback.replaceChildren(summary, heard, hint);
+        const correct = document.createElement('p');
+        correct.append(document.createTextNode('Correct: '));
+        const answer = document.createElement('strong');
+        answer.lang = 'es';
+        answer.textContent = sentence.spanish;
+        correct.append(answer);
+        feedback.replaceChildren(summary, heard, correct);
       };
       recognition.onstart = () => {
         if (recordingSession === session) feedback.textContent = 'Listening… Speak Spanish, then tap Stop.';
