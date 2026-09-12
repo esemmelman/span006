@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Spanish Reflexive Verbs</title>
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; background: #f4f7fc; color: #172b48; font-family: Arial, sans-serif; font-size: 26px; line-height: 1.5; }
+    main { max-width: 1100px; margin: auto; padding: 48px 24px; }
+    h1 { font-size: clamp(40px, 6vw, 64px); line-height: 1.1; margin: 0 0 24px; }
+    .intro { margin: 0 0 32px; }
+    ol { list-style: none; padding: 0; margin: 0; display: grid; gap: 20px; }
+    li { background: white; border: 2px solid #dce5f2; border-radius: 20px; padding: 28px; display: flex; align-items: center; gap: 24px; }
+    .sentence { flex: 1; font-size: 32px; margin: 0; }
+    .number { color: #526782; font-weight: bold; }
+    button { font: inherit; font-weight: bold; font-size: 26px; padding: 18px 24px; border: 0; border-radius: 14px; color: white; background: #204dc0; cursor: pointer; min-height: 72px; }
+    button:hover { background: #16388f; }
+    button:focus-visible { outline: 4px solid #d87b00; outline-offset: 5px; }
+    button[aria-pressed="true"] { background: #146046; }
+    button:disabled { background: #637083; cursor: not-allowed; }
+    #status { min-height: 40px; margin: 24px 0; }
+    footer { margin-top: 32px; font-size: 26px; }
+    @media (max-width: 650px) { main { padding: 32px 16px; } li { align-items: stretch; flex-direction: column; padding: 24px; gap: 18px; } .sentence { font-size: 30px; } button { width: 100%; } }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Spanish reflexive verbs</h1>
+    <p class="intro">Read each English sentence. Tap <strong>Listen in Spanish</strong> to hear its Spanish translation.</p>
+    <ol id="sentences" aria-label="Ten reflexive verb sentences"></ol>
+    <p id="status" role="status" aria-live="polite"></p>
+    <footer>Reflexive verbs end in <strong lang="es">-se</strong> in their infinitive form, like <strong lang="es">lavarse</strong> (to wash oneself). In sentences, use <strong lang="es">me, te, se, nos</strong>, or <strong lang="es">os</strong> with the conjugated verb.</footer>
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>
